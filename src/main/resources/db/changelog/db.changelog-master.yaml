@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: shishir
+      changes:
+        - createTable:
+            tableName: person
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: parent_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_person_id
+                    references: person(id)
+                    nullable: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              
+  - changeSet:
+      id: 2
+      author: shishir
+      changes:
+        - insert:
+            tableName: person
+            columns:
+              - column:
+                  name: parent_id
+                  value: 
+              - column:
+                  name: name
+                  value: John Doe
+        - insert:
+              tableName: person
+              columns:
+                - column:
+                    name: parent_id
+                    value: 1
+                - column:
+                    name: name
+                    value: John Doe Jr.
