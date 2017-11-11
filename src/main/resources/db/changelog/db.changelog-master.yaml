@@ -14,10 +14,30 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: child
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
                   name: parent_id
                   type: int
                   constraints:
-                    foreignKeyName: fk_person_id
+                    foreignKeyName: fk_child_person_id
                     references: person(id)
                     nullable: true
               - column:
@@ -25,6 +45,72 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_daughter
+                  type: char(1)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: color
+                  type: varchar(30)
+        - createTable:
+            tableName: meal
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: child_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_meal_child_id
+                    references: child(id)
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: invented
+                  type: date
+        - createTable:
+            tableName: house
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: person_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_house_person_id
+                    references: person(id)
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: zip_code
+                  type: varchar(10)
+              - column:
+                  name: type
+                  type: varchar(10)
               
   - changeSet:
       id: 2
@@ -34,17 +120,87 @@ databaseChangeLog:
             tableName: person
             columns:
               - column:
-                  name: parent_id
-                  value: 
-              - column:
                   name: name
                   value: John Doe
+              - column:
+                  name: age
+                  value: 30
         - insert:
-              tableName: person
+              tableName: child
               columns:
                 - column:
                     name: parent_id
                     value: 1
                 - column:
                     name: name
-                    value: John Doe Jr.
+                    value: John Doe I.
+                - column:
+                    name: age
+                    value: 5
+                - column:
+                    name: is_daughter
+                    value: Y
+                - column:
+                    name: color
+                    value: Burnt Chinati Red 
+        - insert:
+              tableName: child
+              columns:
+                - column:
+                    name: parent_id
+                    value: 1
+                - column:
+                    name: name
+                    value: John Doe II.
+                - column:
+                    name: age
+                    value: 2
+                - column:
+                    name: is_daughter
+                    value: N
+                - column:
+                    name: color
+                    value: Blue 
+  - changeSet:
+      id: 3
+      author: shishir
+      changes:
+        - insert:
+            tableName: meal
+            columns:
+              - column:
+                  name: child_id
+                  value: 1
+              - column:
+                  name: name
+                  value: Scallop Sashimi with Meyer Lemon Confit
+              - column:
+                  name: invented
+                  value: "2015-11-11"
+        - insert:
+              tableName: meal
+              columns:
+                - column:
+                    name: child_id
+                    value: 2
+                - column:
+                    name: name
+                    value: Pasta
+                - column:
+                    name: invented
+                    value: "2017-10-10"
+        - insert:
+              tableName: house
+              columns:
+                - column:
+                    name: person_id
+                    value: 1
+                - column:
+                    name: address
+                    value: Westminster, London
+                - column:
+                    name: zip_code
+                    value: SW1A 1AA
+                - column:
+                    name: type
+                    value: ESTATE
