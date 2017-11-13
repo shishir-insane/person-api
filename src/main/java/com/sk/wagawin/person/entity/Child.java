@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 
 @Data
@@ -19,13 +21,13 @@ public class Child {
     public static final String ID = "id";
     public static final String FK_PERSON_ID = "fk_child_person_id";
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = Person.ID, insertable = false, updatable = false)
+    @JoinColumn(name = Person.PERSON_ID, insertable = false, updatable = false)
+    @JsonBackReference
     private Person parent;
 
     private String name;
@@ -34,6 +36,6 @@ public class Child {
 
     private String color;
 
-    @OneToMany(mappedBy="child")
+    @OneToMany(mappedBy = "child")
     private Set<Meal> meals;
 }

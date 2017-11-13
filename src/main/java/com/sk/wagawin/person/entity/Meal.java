@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 
 @Data
@@ -20,13 +22,14 @@ public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = Child.ID, insertable = false, updatable = false)
+    @JsonBackReference
     private Child child;
-    
+
     private String name;
-    
+
     @Temporal(TemporalType.DATE)
     private Date invented;
 }

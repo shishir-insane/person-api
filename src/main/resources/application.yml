@@ -1,3 +1,7 @@
+server:
+  context-path: /person-api
+  port: 8090
+
 liquibase:
   change-log: classpath:/db/changelog/db.changelog-master.yaml
   enabled: true
@@ -8,4 +12,4 @@ spring:
     username: root
     password: root
   jpa:
-    show-sql: true
+    show-sql: false
