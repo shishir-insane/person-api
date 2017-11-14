@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sk.wagawin.person.entity.House;
 import com.sk.wagawin.person.service.HouseService;
 import com.sk.wagawin.person.util.AppConstants;
+import com.sk.wagawin.person.util.AppUtils;
 
 @RestController
 public class HouseController {
@@ -24,23 +25,6 @@ public class HouseController {
      */
     @RequestMapping(path = AppConstants.HOUSE_ENDPOINT)
     public House getHouseForPerson(@PathVariable final String personId) {
-        return houseService.getHouseForPersonId(validateAndConvertPersonIdInRequest(personId));
-    }
-
-    /**
-     * Validate and convert person HOUSE_ID string to the corresponding long
-     *
-     * @param personId
-     *            the person id
-     * @return the long
-     */
-    private Long validateAndConvertPersonIdInRequest(final String personId) {
-        Long personIdLong;
-        try {
-            personIdLong = Long.parseLong(personId, 10);
-        } catch (final NumberFormatException e) {
-            throw new IllegalArgumentException(AppConstants.INVALID_PERSON_ID_ERR_MSG);
-        }
-        return personIdLong;
+        return houseService.getHouseForPersonId(AppUtils.validateAndConvertRequestId(personId));
     }
 }

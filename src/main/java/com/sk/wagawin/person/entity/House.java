@@ -36,7 +36,7 @@ public class House {
 
     @Enumerated(EnumType.STRING)
     private HouseType type;
-    
+
     @JsonIgnore
     public String getHouseType() {
         return type.toString();

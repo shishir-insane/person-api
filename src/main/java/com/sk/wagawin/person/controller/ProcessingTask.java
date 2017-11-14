@@ -25,9 +25,7 @@ public class ProcessingTask extends TimerTask {
 
     @Override
     public void run() {
-
         final long concReqs = concurrentRequests.getAndDecrement();
-
         if (deferredResult.isSetOrExpired()) {
             log.warn("{}: Processing of non-blocking request #{} already expired", concReqs, reqId);
         } else {

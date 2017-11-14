@@ -17,7 +17,7 @@ public class HouseServiceImpl implements HouseService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.sk.wagawin.person.service.HouseService#getHouseForPersonId(java.lang.
      * Long)
